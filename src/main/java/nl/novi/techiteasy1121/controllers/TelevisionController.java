@@ -15,7 +15,7 @@ public class TelevisionController {
     }
 
     @GetMapping("/televisions/{id}")
-    public ResponseEntity<Object> getTelevision() {
+    public ResponseEntity<Object> getTelevision(@PathVariable("id") Long id) {
 
         return ResponseEntity.ok();
 
@@ -29,24 +29,16 @@ public class TelevisionController {
     }
 
     @DeleteMapping("/televisions/{id}")
-    public ResponseEntity<Object> deleteTelevision(@PathVariable int id) {
+    public ResponseEntity<Object> deleteTelevision(@PathVariable("id") Long id) {
 
         return ResponseEntity.noContent();
 
     }
 
-    @PutMapping("/televisions/{id}")
-    public ResponseEntity<Object> updateTelevision(@PathVariable int id, @RequestBody String television) {
+    @PutMapping("televisions/{id}")
+    public ResponseEntity<Object> updateTelevision(@PathVariable("id") Long id, @RequestBody String television) {
 
         return ResponseEntity.noContent();
 
     }
-
-    @GetMapping("/televisions?branch={branch}")
-    public ResponseEntity<Object> getAllTelevisions(@RequestParam String brand) {
-
-        return ResponseEntity.ok();
-
-    }
-
 }
