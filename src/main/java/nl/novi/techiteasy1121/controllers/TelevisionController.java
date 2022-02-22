@@ -1,44 +1,62 @@
 package nl.novi.techiteasy1121.controllers;
 
 
+import nl.novi.techiteasy1121.dtos.TelevisionDto;
+import nl.novi.techiteasy1121.models.Television;
+import nl.novi.techiteasy1121.services.TelevisionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 public class TelevisionController {
 
-    @GetMapping("/televisions")
-    public ResponseEntity<Object> getAllTelevisions() {
+    @Autowired
+    TelevisionService televisionService;
 
-        return ResponseEntity.ok();
+    @GetMapping("/televisions")
+    public List<TelevisionDto> getAllTelevisions() {
+
+        List<TelevisionDto> dtos = televisionService.getAllTelevisions();
+
+        return dtos;
 
     }
 
     @GetMapping("/televisions/{id}")
-    public ResponseEntity<Object> getTelevision(@PathVariable("id") Long id) {
+    public ResponseEntity<TelevisionDto> getTelevision(@PathVariable("id") Long id) {
 
-        return ResponseEntity.ok();
+        TelevisionDto dto = televisionService.getTelevisionById(id);
+
+        return ResponseEntity.ok(dto);
 
     }
 
     @PostMapping("/televisions")
-    public ResponseEntity<Object> addTelevision(@RequestBody String television) {
+    public Television addTelevision(@Valid @RequestBody TelevisionDto televisionDto) {
 
-        return ResponseEntity.created();
+        var dto = televisionService.addTelevision(televisionDto);
+
+        return dto;
 
     }
 
     @DeleteMapping("/televisions/{id}")
-    public ResponseEntity<Object> deleteTelevision(@PathVariable("id") Long id) {
+    public void deleteTelevision(@PathVariable("id") Long id) {
 
-        return ResponseEntity.noContent();
+        televisionService.deleteTelevision(id);
 
     }
 
     @PutMapping("televisions/{id}")
-    public ResponseEntity<Object> updateTelevision(@PathVariable("id") Long id, @RequestBody String television) {
+    public TelevisionDto updateTelevision(@PathVariable("id") Long id, @RequestBody TelevisionDto television) {
 
-        return ResponseEntity.noContent();
+        TelevisionDto dto = televisionService.updateTelevision(id, television);
+
+        return dto;
 
     }
 }
