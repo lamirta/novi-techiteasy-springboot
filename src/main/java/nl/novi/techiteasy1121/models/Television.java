@@ -1,7 +1,13 @@
 package nl.novi.techiteasy1121.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import nl.novi.techiteasy1121.dtos.TelevisionDto;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 public class Television {
@@ -29,46 +35,59 @@ public class Television {
     private Integer originalStock;
     private Integer sold;
 
-    // Een default constructor
-    public Television() {}
+    @OneToOne
+    RemoteController remoteController;
 
-    // Een constructor met alle gevraagde variable
-    public Television(
-            Long id,
-            String type,
-            String brand,
-            String name,
-            Double price,
-            Double availableSize,
-            Double refreshRate,
-            String screenType,
-            String screenQuality,
-            Boolean smartTv,
-            Boolean wifi,
-            Boolean voiceControl,
-            Boolean hdr,
-            Boolean bluetooth,
-            Boolean ambiLight,
-            Integer originalStock,
-            Integer sold ) {
-        this.id = id;
-        this.type = type;
-        this.brand = brand;
-        this.name = name;
-        this.price = price;
-        this.availableSize = availableSize;
-        this.refreshRate = refreshRate;
-        this.screenType = screenType;
-        this.screenQuality = screenQuality;
-        this.smartTv = smartTv;
-        this.wifi = wifi;
-        this.voiceControl = voiceControl;
-        this.hdr = hdr;
-        this.bluetooth = bluetooth;
-        this.ambiLight = ambiLight;
-        this.originalStock = originalStock;
-        this.sold = sold;
-    }
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ci_module_id")
+    private CIModule ciModule;
+
+    @OneToMany(mappedBy = "television")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
+    Collection<TelevisionWallBracket> televisionWallBrackets;
+
+//    constructors hoeven niet per se aangemaakt te worden
+//    // Een default constructor
+//    public Television() {}
+//
+//    // Een constructor met alle gevraagde variable
+//    public Television(
+//            Long id,
+//            String type,
+//            String brand,
+//            String name,
+//            Double price,
+//            Double availableSize,
+//            Double refreshRate,
+//            String screenType,
+//            String screenQuality,
+//            Boolean smartTv,
+//            Boolean wifi,
+//            Boolean voiceControl,
+//            Boolean hdr,
+//            Boolean bluetooth,
+//            Boolean ambiLight,
+//            Integer originalStock,
+//            Integer sold ) {
+//        this.id = id;
+//        this.type = type;
+//        this.brand = brand;
+//        this.name = name;
+//        this.price = price;
+//        this.availableSize = availableSize;
+//        this.refreshRate = refreshRate;
+//        this.screenType = screenType;
+//        this.screenQuality = screenQuality;
+//        this.smartTv = smartTv;
+//        this.wifi = wifi;
+//        this.voiceControl = voiceControl;
+//        this.hdr = hdr;
+//        this.bluetooth = bluetooth;
+//        this.ambiLight = ambiLight;
+//        this.originalStock = originalStock;
+//        this.sold = sold;
+//    }
 
     //  Alle variable getters
     public Long getId() {
@@ -139,6 +158,18 @@ public class Television {
         return sold;
     }
 
+    public RemoteController getRemoteController() {
+        return remoteController;
+    }
+
+    public CIModule getCiModule() {
+        return ciModule;
+    }
+
+    public Collection<TelevisionWallBracket> getTelevisionWallBrackets() {
+        return televisionWallBrackets;
+    }
+
     //  Alle variable setters
     public void setId(Long id) {
         this.id = id;
@@ -206,5 +237,17 @@ public class Television {
 
     public void setSold(Integer sold) {
         this.sold = sold;
+    }
+
+    public void setRemoteController(RemoteController remoteController) {
+        this.remoteController = remoteController;
+    }
+
+    public void setCiModule(CIModule ciModule) {
+        this.ciModule = ciModule;
+    }
+
+    public void setTelevisionWallBrackets(Collection<TelevisionWallBracket> televisionWallBrackets) {
+        this.televisionWallBrackets = televisionWallBrackets;
     }
 }

@@ -1,14 +1,18 @@
 package nl.novi.techiteasy1121.controllers;
 
 
+import nl.novi.techiteasy1121.dtos.IdInputDto;
 import nl.novi.techiteasy1121.dtos.TelevisionDto;
-import nl.novi.techiteasy1121.models.Television;
+import nl.novi.techiteasy1121.dtos.WallBracketDto;
+import nl.novi.techiteasy1121.models.WallBracket;
 import nl.novi.techiteasy1121.services.TelevisionService;
+import nl.novi.techiteasy1121.services.TelevisionWallBracketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -16,6 +20,9 @@ public class TelevisionController {
 
     @Autowired
     TelevisionService televisionService;
+
+    @Autowired
+    TelevisionWallBracketService televisionWallBracketService;
 
     @GetMapping("/televisions")
     public List<TelevisionDto> getAllTelevisions() {
@@ -36,9 +43,9 @@ public class TelevisionController {
     }
 
     @PostMapping("/televisions")
-    public Television addTelevision(@Valid @RequestBody TelevisionDto televisionDto) {
+    public TelevisionDto addTelevision(@Valid @RequestBody TelevisionDto televisionDto) {
 
-        var dto = televisionService.addTelevision(televisionDto);
+        TelevisionDto dto = televisionService.addTelevision(televisionDto);
 
         return dto;
 
@@ -58,5 +65,21 @@ public class TelevisionController {
 
         return dto;
 
+    }
+
+
+    @PutMapping("/televisions/{id}/remotecontroller")
+    public void assignRemoteControllerToTelevision(@PathVariable("id") Long id, @RequestBody IdInputDto input) {
+        televisionService.assignRemoteControllerToTelevision(id, input.id);
+    }
+
+    @PutMapping("/televisions/{id}/{ciModuleId}")
+    public void assignCIModuleToTelevision(@PathVariable("id") Long id, @PathVariable("ciModuleId") Long ciModuleId) {
+        televisionService.assignCIModuleToTelevision(id, ciModuleId);
+    }
+
+    @GetMapping("/televisions/wallBrackets/{televisionId}")
+    public Collection<WallBracketDto> getWallBracketsByTelevisionId(@PathVariable("televisionId") Long televisionId){
+        return televisionWallBracketService.getTelevisionWallBracketByTelevisionId(televisionId);
     }
 }

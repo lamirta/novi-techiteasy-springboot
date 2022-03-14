@@ -21,6 +21,9 @@ public class TelevisionDto {
     private Integer originalStock;
     private Integer sold;
 
+    private CIModuleDto ciModuleDto;
+    private RemoteControllerDto remoteControllerDto;
+
     public TelevisionDto() {
     }
 
@@ -42,6 +45,28 @@ public class TelevisionDto {
         this.ambiLight = ambiLight;
         this.originalStock = originalStock;
         this.sold = sold;
+    }
+
+    public TelevisionDto(Long id, String type, String brand, String name, Double price, Double availableSize, Double refreshRate, String screenType, String screenQuality, Boolean smartTv, Boolean wifi, Boolean voiceControl, Boolean hdr, Boolean bluetooth, Boolean ambiLight, Integer originalStock, Integer sold, CIModuleDto ciModuleDto, RemoteControllerDto remoteControllerDto) {
+        this.id = id;
+        this.type = type;
+        this.brand = brand;
+        this.name = name;
+        this.price = price;
+        this.availableSize = availableSize;
+        this.refreshRate = refreshRate;
+        this.screenType = screenType;
+        this.screenQuality = screenQuality;
+        this.smartTv = smartTv;
+        this.wifi = wifi;
+        this.voiceControl = voiceControl;
+        this.hdr = hdr;
+        this.bluetooth = bluetooth;
+        this.ambiLight = ambiLight;
+        this.originalStock = originalStock;
+        this.sold = sold;
+        this.ciModuleDto = ciModuleDto;
+        this.remoteControllerDto = remoteControllerDto;
     }
 
     public Long getId() {
@@ -178,5 +203,21 @@ public class TelevisionDto {
 
     public void setSold(Integer sold) {
         this.sold = sold;
+    }
+
+    public CIModuleDto getCiModuleDto() {
+        return ciModuleDto;
+    }
+
+    public void setCiModuleDto(CIModuleDto ciModuleDto) {
+        this.ciModuleDto = ciModuleDto;
+    }
+
+    public RemoteControllerDto getRemoteControllerDto() {
+        return remoteControllerDto;
+    }
+
+    public void setRemoteControllerDto(RemoteControllerDto remoteControllerDto) {
+        this.remoteControllerDto = remoteControllerDto;
     }
 }
