@@ -65,10 +65,13 @@ public class UserService {
     }
 
     public Set<Authority> getAuthorities(String username) {
-        if (!userRepository.existsById(username)) throw new UsernameNotFoundException(username);
-        User user = userRepository.findById(username).get();
-        UserDto userDto = fromUser(user);
-        return userDto.getAuthorities();
+        if (!userRepository.existsById(username)) {
+            throw new UsernameNotFoundException(username);
+        } else {
+            User user = userRepository.findById(username).get();
+            UserDto userDto = fromUser(user);
+            return userDto.getAuthorities();
+        }
     }
 
     public void addAuthority(String username, String authority) {

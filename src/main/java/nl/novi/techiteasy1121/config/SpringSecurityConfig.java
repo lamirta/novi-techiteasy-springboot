@@ -1,6 +1,5 @@
 package nl.novi.techiteasy1121.config;
 
-import nl.novi.techiteasy1121.filter.JwtRequestFilter;
 import nl.novi.techiteasy1121.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

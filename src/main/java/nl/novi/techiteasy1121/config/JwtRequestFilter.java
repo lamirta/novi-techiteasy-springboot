@@ -1,4 +1,4 @@
-package nl.novi.techiteasy1121.filter;
+package nl.novi.techiteasy1121.config;
 
 
 
